@@ -1,0 +1,23 @@
+﻿<h3>Demo</h3>
+
+<div style="color: @(Ready ? "forestgreen" : "red")">Please wait until it says ready here: @(Ready? "ready" : "waiting...")</div>
+
+We are waiting until the very first render cycle is complete.
+
+<Components.Reference />
+<Components.ShowsRenderOverhead />
+<Components.ShowsNorenderWorkaround />
+
+
+@code {
+    private bool Ready { get; set; }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Ready = true;
+            StateHasChanged();
+        }
+        base.OnAfterRender(firstRender);
+    }
+}

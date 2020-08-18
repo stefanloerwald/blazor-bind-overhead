@@ -1,0 +1,11 @@
+﻿@if (!Show)
+{
+    return;
+}
+<button @onclick='() => { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @Value to @(Value + 1)</button>
+
+@code {
+    [Parameter] public int Value { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public bool Show { get; set; }
+}
