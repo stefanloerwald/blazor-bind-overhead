@@ -27,7 +27,7 @@ We could therefore avoid the render of `Parent`.
 The render does not change anything in the DOM, but still evaluates the entire `Parent` component, and all its children.
 When the number of children grows, this overhead eventually becomes noticable.
 
-# Demo
+# Demo (try for yourself on [github.io (CSB)](https://stefanloerwald.github.io/blazor-bind-overhead/))
 
 To demonstrate this overhead, there are four components:
 
