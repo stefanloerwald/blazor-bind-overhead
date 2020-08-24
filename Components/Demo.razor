@@ -11,13 +11,13 @@ We are waiting until the very first render cycle is complete.
 <hr />
 The code for the component that is re-rendered or not is:
 <br />
-<code>
-    @@if (!Show)
-    {
+<pre>
+@@if (!Show)
+{
     return;
-    }
-    &lt;button @@onclick='() =&gt; { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @@Value to @@(Value + 1)&lt;/button&gt;
-</code>
+}
+&lt;button @@onclick='() =&gt; { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @@Value to @@(Value + 1)&lt;/button&gt;
+</pre>
 
 <code>Show</code> is true for the first item in the list of @Foo.N items, and false for all the others.
 

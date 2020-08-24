@@ -13,29 +13,29 @@ We are waiting until the very first render cycle is complete.
 
 The code for the component that is re-rendered or not is:
 <br />
-<code>
-    @@if (Show)
-    {
+<pre>
+@@if (Show)
+{
     &lt;button&gt; @@onclick='() => { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @@Value to @@(Value + 1)&lt;/button&gt;
-    }
-    else
-    {
+}
+else
+{
     &lt;!--This part is a bit of markup to increase what's being rendered. We don't actually want to spam the rendered output, so we'll just put a dot on screen--&gt;
     &lt;div style="position:absolute; bottom: 16px; right: 16px"&gt;
-    &lt;Dot /&gt;
+        &lt;Dot /&gt;
     &lt;/div&gt;
-    }
-</code>
+}
+</pre>
 
 where <code>&lt;Dot /&gt;</code> is defined as 
 
-<code>
-    &lt;div&gt;
+<pre>
+&lt;div&gt;
     &lt;span&gt;&lt;!--Empty--&gt;&lt;/span&gt;
     &lt;div style="width: 1px; height: 1px; background-color: turquoise; color: purple"&gt;&lt;/div&gt;
     &lt;span style="display: none"&gt;This text isn't displayed, but of course &lt;b&gt;there is markup&lt;/b&gt; to be @@if(true) { &lt;i&gt;rendered&lt;/i&gt; }&lt;/span&gt;
-    &lt;/&lt;div&gt;
-</code>
+&lt;/&lt;div&gt;
+</pre>
 
 <code>Show</code> is true for the first item in the list of @Foo.N items, and false for all the others.
 
