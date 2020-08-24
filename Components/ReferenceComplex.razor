@@ -1,0 +1,12 @@
+﻿
+<h4>For reference (with complex component)</h4>
+This section shows how fast interactivity should be at least. This has a bind (therefore re-renders unnecessarily), but only one element, so the overhead is negligible.
+@foreach (var element in Elements)
+{
+    var first = Elements.First();
+    <BindToComplex @bind-Value="@element.Value" Show="@(element == first)" />
+}
+<hr />
+@code {
+    private List<Foo> Elements = Enumerable.Range(0, 1).Select(i => new Foo { Value = i }).ToList();
+}

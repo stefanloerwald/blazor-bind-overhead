@@ -1,0 +1,13 @@
+﻿<h4>Shows render overhead (with complex component)</h4>
+
+This section shows the overhead of bind. We have @Foo.N elements (just the first is displayed, but the others will still be consume time, if rendered)
+
+@foreach (var element in Elements)
+{
+    var first = Elements.First();
+    <BindToComplex @bind-Value="@element.Value" Show="@(element == first)" />
+}
+<hr />
+@code {
+    private List<Foo> Elements = Enumerable.Range(0, Foo.N).Select(i => new Foo { Value = i }).ToList();
+}

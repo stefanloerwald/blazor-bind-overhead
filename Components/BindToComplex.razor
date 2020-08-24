@@ -1,0 +1,17 @@
+﻿@if (Show)
+{
+<button @onclick='() => { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @Value to @(Value + 1)</button>
+}
+else
+{
+ <!--This part is a bit of markup to increase what's being rendered. We don't actually want to spam the rendered output, so we'll just put a dot on screen-->
+<div style="position:absolute; bottom: 16px; right: 16px">
+    <Dot />
+</div>
+}
+
+@code {
+    [Parameter] public int Value { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public bool Show { get; set; }
+}
