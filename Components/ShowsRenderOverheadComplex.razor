@@ -15,5 +15,13 @@ This section shows the overhead of bind. We have @N elements (just the first is 
         Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
         base.OnInitialized();
     }
+    protected override void OnParametersSet()
+    {
+        if (Elements == null || Elements.Count != N)
+        {
+            Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
+        }
+        base.OnParametersSet();
+    }
     private List<Foo> Elements;
 }

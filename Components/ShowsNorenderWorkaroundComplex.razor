@@ -15,6 +15,14 @@ This section shows how the render overhead could be avoided with a <code>norende
         Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
         base.OnInitialized();
     }
+    protected override void OnParametersSet()
+    {
+        if (Elements == null || Elements.Count != N)
+        {
+            Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
+        }
+        base.OnParametersSet();
+    }
     private List<Foo> Elements;
     private static object no_render = new object();
     private static RenderFragment<(Foo, Foo)> bind_to_without_render_on_value_changed = ((Foo element, Foo first) value) => (builder) =>
