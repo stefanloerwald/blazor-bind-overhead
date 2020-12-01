@@ -1,12 +1,17 @@
-﻿<h3>Demo</h3>
+﻿@page "/trivial"
+@page "/trivial/{NArg}"
+
+<h3>Demo with @N items</h3>
 
 <div style="color: @(Ready ? "forestgreen" : "red")">Please wait until it says ready here: @(Ready? "ready" : "waiting...")</div>
 
 We are waiting until the very first render cycle is complete.
 
+<h5>Can't see a performance issue? Try <a href="trivial/@(N * 10)">increasing the number</a> of items rendered.</h5>
+
 <Components.Reference />
-<Components.ShowsRenderOverhead />
-<Components.ShowsNorenderWorkaround />
+<Components.ShowsRenderOverhead N="N" />
+<Components.ShowsNorenderWorkaround N="N" />
 
 <hr />
 The code for the component that is re-rendered or not is:
@@ -19,9 +24,11 @@ The code for the component that is re-rendered or not is:
 &lt;button @@onclick='() =&gt; { Value += 1; ValueChanged.InvokeAsync(Value); }'>Increment @@Value to @@(Value + 1)&lt;/button&gt;
 </pre>
 
-<code>Show</code> is true for the first item in the list of @Foo.N items, and false for all the others.
+<code>Show</code> is true for the first item in the list of @N items, and false for all the others.
 
 @code {
+    private int N => int.TryParse(NArg, out var n) ? n : 1000;
+    [Parameter] public string NArg { get; set; }
     private bool Ready { get; set; }
     protected override void OnAfterRender(bool firstRender)
     {

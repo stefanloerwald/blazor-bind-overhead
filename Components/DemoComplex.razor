@@ -1,12 +1,17 @@
-﻿<h3>Demo with more complex markup</h3>
+﻿@page "/complex"
+@page "/complex/{NArg}"
+
+<h3>Demo with more complex markup</h3>
 
 <div style="color: @(Ready ? "forestgreen" : "red")">Please wait until it says ready here: @(Ready? "ready" : "waiting...")</div>
 
 We are waiting until the very first render cycle is complete.
 
+<h5>Can't see a performance issue? Try <a href="complex/@(N * 10)">increasing the number</a> of items rendered.</h5>
+
 <Components.ReferenceComplex />
-<Components.ShowsRenderOverheadComplex />
-<Components.ShowsNorenderWorkaroundComplex />
+<Components.ShowsRenderOverheadComplex N="N" />
+<Components.ShowsNorenderWorkaroundComplex N="N" />
 
 
 <hr />
@@ -27,7 +32,7 @@ else
 }
 </pre>
 
-where <code>&lt;Dot /&gt;</code> is defined as 
+where <code>&lt;Dot /&gt;</code> is defined as
 
 <pre>
 &lt;div&gt;
@@ -37,9 +42,11 @@ where <code>&lt;Dot /&gt;</code> is defined as
 &lt;/&lt;div&gt;
 </pre>
 
-<code>Show</code> is true for the first item in the list of @Foo.N items, and false for all the others.
+<code>Show</code> is true for the first item in the list of @N items, and false for all the others.
 
 @code {
+    private int N => int.TryParse(NArg, out var n) ? n : 1000;
+    [Parameter] public string NArg { get; set; }
     private bool Ready { get; set; }
     protected override void OnAfterRender(bool firstRender)
     {

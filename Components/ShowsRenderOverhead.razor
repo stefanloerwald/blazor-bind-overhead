@@ -1,6 +1,6 @@
 ﻿<h4>Shows render overhead</h4>
 
-This section shows the overhead of bind. We have @Foo.N elements (just the first is displayed, but the others will still be consume time, if rendered)
+This section shows the overhead of bind. We have @N elements (just the first is displayed, but the others will still be consume time, if rendered)
 
 @foreach (var element in Elements)
 {
@@ -9,5 +9,11 @@ This section shows the overhead of bind. We have @Foo.N elements (just the first
 }
 <hr />
 @code {
-    private List<Foo> Elements = Enumerable.Range(0, Foo.N).Select(i => new Foo { Value = i }).ToList();
+    [Parameter] public int N { get; set; }
+    protected override void OnInitialized()
+    {
+        Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
+        base.OnInitialized();
+    }
+    private List<Foo> Elements;
 }

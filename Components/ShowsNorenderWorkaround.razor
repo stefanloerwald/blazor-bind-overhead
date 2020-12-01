@@ -1,6 +1,6 @@
-﻿<h4>Shows render overhead</h4>
+﻿<h4>Shows render overhead avoidance</h4>
 
-This section shows how the render overhead could be avoided with a <code>norender</code> on the binding. We have @Foo.N elements (just the first is displayed, but the others will still be consume time, if rendered) 
+This section shows how the render overhead could be avoided with a <code>norender</code> on the binding. We have @N elements (just the first is displayed, but the others will still be consume time, if rendered) 
 
 @foreach (var element in Elements)
 {
@@ -9,7 +9,13 @@ This section shows how the render overhead could be avoided with a <code>norende
 }
 <hr />
 @code {
-    private List<Foo> Elements = Enumerable.Range(0, Foo.N).Select(i => new Foo { Value = i }).ToList();
+    [Parameter] public int N { get; set; }
+    protected override void OnInitialized()
+    {
+        Elements = Enumerable.Range(0, N).Select(i => new Foo { Value = i }).ToList();
+        base.OnInitialized();
+    }
+    private List<Foo> Elements;
     private static object no_render = new object();
     private static RenderFragment<(Foo, Foo)> bind_to_without_render_on_value_changed = ((Foo element, Foo first) value) => (builder) =>
     {
